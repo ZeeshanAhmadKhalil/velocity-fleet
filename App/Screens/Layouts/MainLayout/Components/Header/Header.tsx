@@ -27,13 +27,13 @@ const AppBar = styled(MuiAppBar, {
 })(({ theme, open }: any) => ({
     height: appBarHeight,
     paddingRight: 0,
-    marginRight: drawerClosedWidth,
+    marginRight: 0,
     zIndex: theme.zIndex.drawer + 1,
     transition: theme.transitions.create(['width', 'margin'], {
         easing: theme.transitions.easing.sharp,
         duration: theme.transitions.duration.leavingScreen,
     }),
-    width: `calc(100% - ${2 * drawerClosedWidth}px)`,
+    width: `calc(100% - ${1 * drawerClosedWidth}px)`,
     ...(open && {
         marginLeft: drawerClosedWidth + drawerWidth,
         width: `calc(100% - ${drawerClosedWidth + drawerWidth}px)`,
@@ -102,45 +102,7 @@ const Header = () => {
                                 marginRight: 40,
                             }}
                         >
-                            {user?.name}
-                        </Button>
-                        <Button
-                            match="sm1"
-                            iconOnSmall={
-                                <UpgradeLine
-                                    height={25}
-                                    width={25}
-                                />
-                            }
-                            color={"warning"}
-                            startIcon={
-                                <Upgrade
-                                    height={25}
-                                    width={25}
-                                />
-                            }
-                            style={{
-                                borderRadius: 50,
-                                marginRight: 15,
-                            }}
-                        >
-                            Upgrade Package
-                        </Button>
-                        <Button
-                            match="sm1"
-                            iconOnSmall={
-                                <StorefrontIcon
-                                    height={25}
-                                    width={25}
-                                />
-                            }
-                            color={"secondary"}
-                            icon={null}
-                            style={{
-                                borderRadius: 50,
-                            }}
-                        >
-                            Marketpalce
+                            {"user?.name"}
                         </Button>
                     </Box>
                 </Toolbar>

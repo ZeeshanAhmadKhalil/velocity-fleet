@@ -9,8 +9,8 @@ import {
 } from '@mui/material';
 import Box from '@mui/material/Box';
 import MuiDialog from '@mui/material/Dialog';
-import { setProfileDialog } from '@Screens/Shared/Store/sharedSlice';
 import { setProfileDialogMain } from '@Screens/Profile/Store/profileSlice';
+import { setProfileDialog } from '@Screens/Shared/Store/sharedSlice';
 import cls from 'classnames';
 import BellGray from 'public/Assets/Svgs/bell-gray.svg';
 import CloudScape from 'public/Assets/Svgs/cloud-scape.svg';
@@ -46,7 +46,7 @@ const Dialog = styled(MuiDialog)(({ theme }) => {
             justifyContent: "flex-end",
             alignItems: "flex-start",
             paddingTop: 30,
-            paddingRight: 380,
+            paddingRight: 10,
         },
     }
 })
@@ -115,6 +115,7 @@ function ProfileDialog() {
         >
             <DialogContent
                 sx={{
+                    border: '0px solid red'
                 }}
             >
                 <StyledBox

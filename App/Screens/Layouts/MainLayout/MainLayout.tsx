@@ -17,7 +17,6 @@ import { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import Footer from './Components/Footer/Footer';
 import Header from './Components/Header/Header';
-import RightBar from './Components/RightBar/RightBar';
 import HoverSidebar from './Components/Sidebar/HoverSidebar';
 import Sidebar from './Components/Sidebar/Sidebar';
 import styles from './MainLayout.module.scss';
@@ -78,7 +77,6 @@ function MainLayout(props: any) {
             <Header />
             <Sidebar />
             <HoverSidebar />
-            <RightBar />
             <ContentBox
                 open={sidebar}
                 component="main"

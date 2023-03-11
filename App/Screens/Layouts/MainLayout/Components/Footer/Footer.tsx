@@ -47,39 +47,13 @@ function Footer() {
                     marginRight: 10
                 }}
             >
-                {"DISPUTE FLARE"}
+                {"Velocity Fleet"}
             </Button>
-            <DropDown
-                list={priorityList}
-                name="language"
-                customChange={{
-                    value: language,
-                    onChange: setLanguage,
-                }}
-                hideTextField={true}
-                theme={darkTheme}
-                styles={{
-                    marginLeft: 1,
-                    border: `0.5px solid ${borders.light}`,
-                    height: 35,
-                }}
-            />
             <Box sx={{ marginLeft: "1rem" }}>
                 <Typography>
                     <CopyrightIcon />
-                    2022 Dispute Flare
+                    2023 Velocity Fleet
                 </Typography>
-            </Box>
-            <Box
-                sx={{
-                    border: `1px solid ${text.main}`,
-                    borderTop: "0",
-                    borderBottom: "0",
-                    padding: "0 1rem 0 1rem",
-                    marginLeft: "1rem"
-                }}
-            >
-                Themes
             </Box>
         </Box>
     )

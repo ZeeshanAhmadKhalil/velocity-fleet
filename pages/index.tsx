@@ -1,4 +1,4 @@
-import Car from "@Screens/Car"
+import Car from "@Screens/Car/Car"
 import MainLayout from "@Screens/Layouts/MainLayout/MainLayout"
 
 function IndexPage() {
