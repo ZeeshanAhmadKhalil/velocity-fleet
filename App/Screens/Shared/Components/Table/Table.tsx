@@ -10,12 +10,10 @@ import {
 import {
     DataGrid as MuiDataGrid
 } from '@mui/x-data-grid';
-import { setToolbar } from '@Screens/Shared/Store/sharedSlice';
 import cls from 'classnames';
 import AddCircle from 'public/Assets/Svgs/add-circle.svg';
 import HeaderSeparator from 'public/Assets/Svgs/HeaderSeparator.svg';
 import { useDispatch } from 'react-redux';
-import Toolbar from './Components/Toolbar/Toolbar';
 
 const DataGrid = styled(MuiDataGrid)((
     props: any
@@ -195,23 +193,21 @@ function Table(props: any) {
         hidePagination,
         processRowUpdate,
         stripedRows = false,
-        setColumnVisibility,
         hideSeparator = false,
-        onSelectionModelChange,
-        setAllColumnsVisibility,
         checkboxSelection = true,
-        setDefaultColumnsVisibility,
+        onRowSelectionModelChange,
         headerColor = tableHeader?.main,
+        columnVisibilityModel = { id: false },
         rowSeparatorColor = tableSeparator?.main,
     } = props || {}
 
     let localeText: any = {
         noRowsLabel:
-                <NoRows
-                    noRowsAction={noRowsAction}
-                    xGrey3={xGrey3}
-                    title={title}
-                />
+            <NoRows
+                noRowsAction={noRowsAction}
+                xGrey3={xGrey3}
+                title={title}
+            />
     }
 
     let columnsToPass = columns
@@ -226,6 +222,7 @@ function Table(props: any) {
     const dispatch = useDispatch()
 
     const handleClick = () => {
+        if (rows.length == 0)
             noRowsAction?.()
     }
 
@@ -244,24 +241,20 @@ function Table(props: any) {
 
             >
                 <DataGrid
-                    experimentalFeatures={{
-                        newEditingApi: true,
-                    }}
                     {...{
                         stripedRows,
                         rowSeparatorColor,
                         headerColor,
                     }}
+                    onRowSelectionModelChange={onRowSelectionModelChange}
+                    columnVisibilityModel={columnVisibilityModel}
                     processRowUpdate={processRowUpdate}
                     onRowClick={onRowClick}
                     hideFooter={hidePagination}
-                    onSelectionModelChange={onSelectionModelChange}
                     loading={false}
                     rows={rows}
                     autoHeight={autoHeight}
                     columns={columnsToPass}
-                    rowsPerPageOptions={[5, 25, 50, 100]}
-                    disableSelectionOnClick
                     disableColumnMenu
                     checkboxSelection={checkboxSelection}
                     getRowClassName={({
@@ -280,10 +273,6 @@ function Table(props: any) {
                         color: 'text.grey',
                         border: `1px solid ${borderColor}`,
                         height,
-                    }}
-                    onColumnHeaderClick={({ field }) => {
-                        if (field == 'settings')
-                            dispatch(setToolbar(true))
                     }}
                     components={{
                         ColumnResizeIcon: () => (
@@ -310,18 +299,6 @@ function Table(props: any) {
                             <SortIcons />,
                     }}
                 />
-                {(
-                    rows?.length > 0
-                    && columns.some((obj: any) => obj?.field == 'settings')
-                ) &&
-                    <Toolbar
-                        title={title}
-                        columns={columns}
-                        setColumnVisibility={setColumnVisibility}
-                        setAllColumnsVisibility={setAllColumnsVisibility}
-                        setDefaultColumnsVisibility={setDefaultColumnsVisibility}
-                    />
-                }
             </div >
         </ThemeProvider>
     );

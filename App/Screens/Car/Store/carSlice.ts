@@ -3,11 +3,11 @@ import { createSlice } from '@reduxjs/toolkit';
 const carSlice = createSlice({
     name: 'car',
     initialState: {
-        addCarDialogue: false,
+        addCarDialog: false,
     },
     reducers: {
         setAddCarDialog: (state, action) => {
-            state.addCarDialogue = action.payload
+            state.addCarDialog = action.payload
         }
     },
     extraReducers: {

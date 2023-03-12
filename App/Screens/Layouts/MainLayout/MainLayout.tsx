@@ -11,7 +11,6 @@ import useWindowDimensions from '@Hooks/useWindowDimensions';
 import { CssBaseline } from '@mui/material';
 import MuiBox from '@mui/material/Box';
 import { Box } from '@mui/system';
-import ProfileDialog from '@Screens/Profile/Components/Profile/ProfileDialog';
 import cls from 'classnames';
 import { useEffect } from 'react';
 import { useSelector } from 'react-redux';
@@ -100,7 +99,6 @@ function MainLayout(props: any) {
                     <Footer />
                 </ScrollContainer>
             </ContentBox>
-            <ProfileDialog />
         </MuiBox>
     )
 }

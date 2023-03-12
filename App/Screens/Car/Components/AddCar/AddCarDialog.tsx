@@ -1,6 +1,11 @@
+import AutoComplete from '@Components/AutoComplete/AutoComplete';
+import DatePicker from '@Components/DatePicker/DatePicker';
+import DropDown from '@Components/DropDown/DropDown';
+import TextInput from '@Components/TextInput/TextInput';
 import RightDialogLayout from '@Layouts/RightDialogLayout/RightDialogLayout';
 import {
     Box, Divider,
+    Grid,
     styled,
     Typography,
     useTheme
@@ -30,36 +35,40 @@ const Container = styled(Box)(({ theme }) => {
     }
 })
 
+const Label = styled(Typography)(({ theme }) => {
+
+    const {
+        text: { xxxGrey },
+    }: any = theme.palette
+
+    return {
+        color: xxxGrey,
+        fontWeight: 500,
+    }
+})
+
 function AddCarDialog() {
 
+    let categories = [
+        "Super Car",
+        "Hyper Car",
+        "Sports Car",
+    ]
+
     const defaultValues = {
-        firstName: null,
-        lastName: null,
-        ssnNumber: null,
-        emailId: null,
-        mobileNo: null,
-        phoneNo: null,
-        website: null,
-        address: null,
-        city: null,
-        state: null,
-        country: null,
-        zipCode: null,
-        hasPreviousAddress: null,
-        previousAddress: null,
-        previousCity: null,
-        previousState: null,
-        previousCountry: null,
-        previousZipCode: null,
-        provider: null,
-        username: null,
-        password: null,
-        ssn: null,
-        hasAttachmentAgreement: null,
-        attachmentAgreement: null,
-        requiredDocuments: [],
-        otherRequiredDocument: null
+        color: null,
+        model: null,
+        make: null,
+        registrationNo: null,
+        topSpeed: null,
+        category: categories[0],
     }
+
+    const {
+        palette: {
+            tableSeparator: { light }
+        }
+    }: any = useTheme()
 
     const dispatch = useDispatch()
     const {
@@ -72,7 +81,7 @@ function AddCarDialog() {
     } = useSelector((state: any) => state.shared)
     const {
         addCarDialog
-    } = useSelector((state: any) => state.Cars)
+    } = useSelector((state: any) => state.car)
 
     const {
         register,
@@ -81,10 +90,17 @@ function AddCarDialog() {
         reset,
         watch,
         formState: { errors },
+        setValue,
     } = useForm({
         mode: 'onChange',
         defaultValues,
     });
+
+    const handleEnter = (value: any) => {
+        console.log("value===>", value)
+        categories.push(value)
+        setValue('category', value)
+    }
 
     return (
         <RightDialogLayout
@@ -113,9 +129,118 @@ function AddCarDialog() {
                 </Typography>
                 <Divider
                     sx={{
-                        backgroundColor: tableSeparator?.light
+                        backgroundColor: tableSeparator?.light,
+                        mb: 2,
                     }}
                 />
+                <Grid
+                    container
+                    rowSpacing={3}
+                    className={cls(
+                        'border-red-700',
+                        'border-0',
+                        'flex',
+                        'items-center',
+                    )}
+                >
+                    <Grid item xl={2} md={6} xs={12}>
+                        <Label
+                            variant="subtitle1"
+                        >
+                            Color
+                        </Label>
+                    </Grid>
+                    <Grid item xl={4} md={6} xs={12}>
+                        <TextInput
+                            register={register("color", {
+                                required: true,
+                            })}
+                            name="color"
+                            error={errors.color}
+                        />
+                    </Grid>
+                    <Grid item xl={2} md={6} xs={12}>
+                        <Label
+                            variant="subtitle1"
+                        >
+                            Model
+                        </Label>
+                    </Grid>
+                    <Grid item xl={4} md={6} xs={12}>
+                        <TextInput
+                            register={register("model", {
+                                required: true,
+                            })}
+                            name="model"
+                            error={errors.model}
+                        />
+                    </Grid>
+                    <Grid item xl={2} md={6} xs={12}>
+                        <Label
+                            variant="subtitle1"
+                        >
+                            Make
+                        </Label>
+                    </Grid>
+                    <Grid item xl={4} md={6} xs={12}>
+                        <TextInput
+                            register={register("make", {
+                                required: true,
+                            })}
+                            name="make"
+                            error={errors.make}
+                        />
+                    </Grid>
+                    <Grid item xl={2} md={6} xs={12}>
+                        <Label
+                            variant="subtitle1"
+                        >
+                            Registration No.
+                        </Label>
+                    </Grid>
+                    <Grid item xl={4} md={6} xs={12}>
+                        <TextInput
+                            register={register("registrationNo", {
+                                required: true,
+                            })}
+                            name="registrationNo"
+                            error={errors.registrationNo}
+                        />
+                    </Grid>
+                    <Grid item xl={2} md={6} xs={12}>
+                        <Label
+                            variant="subtitle1"
+                        >
+                            Top Speed
+                        </Label>
+                    </Grid>
+                    <Grid item xl={4} md={6} xs={12}>
+                        <TextInput
+                            register={register("topSpeed", {
+                                required: true,
+                            })}
+                            name="topSpeed"
+                            error={errors.topSpeed}
+                        />
+                    </Grid>
+                    <Grid item xl={2} md={6} xs={12}>
+                        <Label
+                            variant="subtitle1"
+                        >
+                            Category
+                        </Label>
+                    </Grid>
+                    <Grid item xl={4} md={6} xs={12}>
+                        <AutoComplete
+                            watch={watch}
+                            name="category"
+                            control={control}
+                            options={categories}
+                            error={errors.category}
+                            handleEnter={handleEnter}
+                        />
+                    </Grid>
+                </Grid>
             </Container>
         </RightDialogLayout >
     );

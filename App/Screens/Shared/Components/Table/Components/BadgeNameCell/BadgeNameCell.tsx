@@ -2,7 +2,6 @@ import {
     Badge,
     Box
 } from '@mui/material';
-import { setSelectedClientId } from '@Screens/Shared/Store/sharedSlice';
 import { useRouter } from 'next/router';
 import { useDispatch } from 'react-redux';
 
@@ -23,7 +22,6 @@ function BadgeNameCell(props: any) {
     const handleClick = () => {
 
         if (navigateTo) {
-            dispatch(setSelectedClientId(id))
             router.push(navigateTo)
         }
     }

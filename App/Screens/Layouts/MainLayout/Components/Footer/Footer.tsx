@@ -1,6 +1,4 @@
 import Button from '@Components/Button/Button'
-import DropDown from '@Components/DropDown/DropDown'
-import { darkTheme } from '@Config/theme'
 import CopyrightIcon from '@mui/icons-material/Copyright'
 import {
     Typography,
@@ -54,6 +52,18 @@ function Footer() {
                     <CopyrightIcon />
                     2023 Velocity Fleet
                 </Typography>
+            </Box>
+            <Box
+                sx={{
+                    border: `1px solid ${text.main}`,
+                    borderTop: "0",
+                    borderBottom: "0",
+                    padding: "0 1rem 0 1rem",
+                    marginLeft: "1rem",
+                    cursor: 'pointer',
+                }}
+            >
+                Themes
             </Box>
         </Box>
     )

@@ -36,7 +36,7 @@ function ScrollContainer({
                             drawerClosedWidth
                     )
                     - rightBarWidth
-                    - 16 * 2,
+                    - 16 * 1,
                 paddingRight: 15,
                 border: '0px solid red',
             }}

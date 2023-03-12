@@ -2,15 +2,15 @@ import { configureStore } from '@reduxjs/toolkit'
 import { authApi } from '@Screens/Auth/Services/authApi'
 import layout from '@Screens/Layouts/Store/layoutSlice'
 import theme from '@Screens/Layouts/Store/themeSlice'
-import profile from '@Screens/Profile/Store/profileSlice'
 import shared from '@Screens/Shared/Store/sharedSlice'
+import car from '@Screens/Car/Store/carSlice'
 import storage from '@Store/storage'
 import { combineReducers } from "redux"
 import { persistReducer } from 'redux-persist'
 
 const reducers = combineReducers({
+    car,
     layout,
-    profile,
     shared,
     theme,
     [authApi.reducerPath]: authApi.reducer,

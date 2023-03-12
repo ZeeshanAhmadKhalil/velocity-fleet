@@ -11,7 +11,6 @@ import cls from 'classnames';
 import LogoDark from 'public/Assets/Svgs/logo-dark.svg';
 import YummyBurger from 'public/Assets/Svgs/yummy-burger.svg';
 import { useDispatch, useSelector } from 'react-redux';
-import AffilateButtom from './AffilateButtom';
 import styles from './HoverSidebar.module.scss';
 import SidebarItem from './SidebarItem';
 
@@ -211,7 +210,6 @@ function Sidebar() {
                         sx={{ height: 65 }}
                     />
                 </Box>
-                <AffilateButtom />
             </div>
         </Drawer >
     );

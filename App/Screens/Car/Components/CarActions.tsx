@@ -1,15 +1,25 @@
 import Button from '@Components/Button/Button';
+import SimpleDropDown from '@Components/SimpleDropdown/SimpleDropdown';
 import AddIcon from '@mui/icons-material/Add';
 import DeleteIcon from '@mui/icons-material/Delete';
+import EditIcon from '@mui/icons-material/Edit';
 import { useDispatch } from 'react-redux';
 import { setAddCarDialog } from '../Store/carSlice';
 
 function CarActions(props: any) {
 
+    const categoryList = [
+        { label: "Super Car", value: 1 },
+        { label: "Hyper Car", value: 2 },
+        { label: "Sports Car", value: 3 },
+    ]
+
     const dispatch = useDispatch()
 
     const {
-        selectedCars
+        selectedCars,
+        setSelectedCategory,
+        selectedCategory,
     } = props || {}
 
     return (
@@ -26,7 +36,7 @@ function CarActions(props: any) {
             >
                 NEW CAR
             </Button>
-            {selectedCars?.length > 0 &&
+            {selectedCars?.length == 1 &&
                 <>
                     <Button
                         iconOnSmall={<DeleteIcon />}
@@ -40,8 +50,8 @@ function CarActions(props: any) {
                         DELETE
                     </Button>
                     <Button
-                        iconOnSmall={<DeleteIcon />}
-                        color={"warning"}
+                        iconOnSmall={<EditIcon />}
+                        color={"pink"}
                         startIcon={null}
                         style={{
                             borderRadius: 3,
@@ -52,6 +62,25 @@ function CarActions(props: any) {
                     </Button>
                 </>
             }
+            {selectedCars?.length > 1 &&
+                <Button
+                    iconOnSmall={<DeleteIcon />}
+                    color={"warning"}
+                    startIcon={null}
+                    style={{
+                        borderRadius: 3,
+                        marginRight: 10
+                    }}
+                >
+                    DELETE SELECTED
+                </Button>
+            }
+            <SimpleDropDown
+                value={selectedCategory}
+                list={categoryList}
+                onChange={setSelectedCategory}
+                label="Category"
+            />
         </>
     )
 }

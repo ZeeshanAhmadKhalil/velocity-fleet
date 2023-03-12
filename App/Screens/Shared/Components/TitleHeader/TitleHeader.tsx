@@ -1,8 +1,5 @@
 import { Box, Divider, Typography } from '@mui/material';
 import cls from 'classnames';
-import Gear from 'public/Assets/Svgs/gear.svg';
-import Star from 'public/Assets/Svgs/star.svg';
-import Searcher from './Searcher';
 import styles from './TitleHeader.module.scss';
 
 
@@ -48,17 +45,6 @@ function TitleHeader(props: any) {
                         >
                             {title}
                         </Typography>
-                        <div
-                            className={cls(
-                                `cursor-pointer`,
-                            )}
-                        >
-                            <Star
-                                fill='#EBA51C'
-                                height={20}
-                                width={20}
-                            />
-                        </div>
                     </Box>
                 </Box>
                 <Box
@@ -69,27 +55,6 @@ function TitleHeader(props: any) {
                     )}
                 >
                     {actionButtons}
-                    <Box
-                        sx={{ display: { sm1: 'flex', xs: 'none' } }}
-                    >
-                        <Searcher />
-                        <Box
-                            sx={{
-                                borderWidth: 1,
-                            }}
-                            className={cls(
-                                `border-[#BACDE4]`,
-                                `px-2.5 py-2.5`,
-                                `cursor-pointer`,
-                                `rounded`
-                            )}
-                        >
-                            <Gear
-                                height={15}
-                                width={15}
-                            />
-                        </Box>
-                    </Box>
                 </Box>
             </Box>
             <Divider
