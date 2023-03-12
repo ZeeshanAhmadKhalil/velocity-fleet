@@ -115,7 +115,7 @@ function AddCarDialog() {
             }
             open={addCarDialog}
             closeBtnText="Car"
-            title={"Add Car"}
+            title={"Add CAR"}
         >
             <Container>
                 <Typography
