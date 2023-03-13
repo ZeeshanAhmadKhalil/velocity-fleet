@@ -9,6 +9,7 @@ import {
 } from '@mui/material';
 import Box from '@mui/material/Box';
 import MuiDialog from '@mui/material/Dialog';
+import { setUser } from '@Screens/Auth/Store/authSlice';
 import { setProfileDialog } from '@Screens/Shared/Store/sharedSlice';
 import cls from 'classnames';
 import BellGray from 'public/Assets/Svgs/bell-gray.svg';
@@ -103,6 +104,10 @@ function ProfileDialog() {
         = themes
             .find((obj: any) => obj.id == selectedTheme)
             ?.imagePath
+
+    const handleLogout = () => {
+        dispatch(setUser(null))
+    }
 
     return (
         <Dialog
@@ -228,6 +233,7 @@ function ProfileDialog() {
                     }}
                 >
                     <Box
+                        onClick={handleLogout}
                         sx={{
                             display: 'flex',
                             alignItems: 'center',

@@ -12,7 +12,7 @@ import { CssBaseline } from '@mui/material';
 import MuiBox from '@mui/material/Box';
 import { Box } from '@mui/system';
 import cls from 'classnames';
-import { useEffect } from 'react';
+import { useRouter } from 'next/router';
 import { useSelector } from 'react-redux';
 import Footer from './Components/Footer/Footer';
 import Header from './Components/Header/Header';
@@ -34,6 +34,8 @@ let ContentBox = styled(MuiBox, {
 
 function MainLayout(props: any) {
 
+    const router = useRouter()
+
     const {
         height,
         width,
@@ -50,57 +52,63 @@ function MainLayout(props: any) {
         themes,
         selectedTheme,
     } = useSelector((state: any) => state.theme)
+    const {
+        user
+    } = useSelector((state: any) => state.auth)
+
+    if (!user?.access_token)
+        router.push('/login')
 
     let selectedImagePath
         = themes
             .find((obj: any) => obj.id == selectedTheme)
             ?.imagePath
 
-    useEffect(() => {
-    }, [])
-
-    return (
-        <MuiBox
-            sx={{
-                display: 'flex',
-                background: `url('${selectedImagePath}')`,
-                backgroundSize: 'cover',
-            }}
-            className={cls(
-                styles.mainLayoutContainer,
-                `h-screen`,
-                `border-red-700`, `border-0 `,
-            )}
-        >
-            <CssBaseline />
-            <Header />
-            <Sidebar />
-            <HoverSidebar />
-            <ContentBox
-                open={sidebar}
-                component="main"
-                sx={{ flexGrow: 1, }}
+    if (user?.access_token)
+        return (
+            <MuiBox
+                sx={{
+                    display: 'flex',
+                    background: `url('${selectedImagePath}')`,
+                    backgroundSize: 'cover',
+                }}
                 className={cls(
-                    `border-red-700`, `border-0`,
-                    `px-4`,
+                    styles.mainLayoutContainer,
+                    `h-screen`,
+                    `border-red-700`, `border-0 `,
                 )}
             >
-                <ScrollContainer>
-                    <Box
-                        sx={{
-                            border: '0px solid red',
-                            minHeight: height
-                                - appBarHeight
-                                - footerHeight
-                        }}
-                    >
-                        {children}
-                    </Box>
-                    <Footer />
-                </ScrollContainer>
-            </ContentBox>
-        </MuiBox>
-    )
+                <CssBaseline />
+                <Header />
+                <Sidebar />
+                <HoverSidebar />
+                <ContentBox
+                    open={sidebar}
+                    component="main"
+                    sx={{ flexGrow: 1, }}
+                    className={cls(
+                        `border-red-700`, `border-0`,
+                        `px-4`,
+                    )}
+                >
+                    <ScrollContainer>
+                        <Box
+                            sx={{
+                                border: '0px solid red',
+                                minHeight: height
+                                    - appBarHeight
+                                    - footerHeight
+                            }}
+                        >
+                            {children}
+                        </Box>
+                        <Footer />
+                    </ScrollContainer>
+                </ContentBox>
+            </MuiBox>
+        )
+    else
+        return null
 }
 
 export default MainLayout

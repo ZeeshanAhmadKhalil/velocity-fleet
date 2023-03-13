@@ -17,6 +17,7 @@ function Button(props: any) {
         iconOnSmall,
         match = "md1",
         size = 'medium',
+        isLoading=false,
         disableElevation,
         variant = "contained",
     } = props || {}
@@ -51,6 +52,7 @@ function Button(props: any) {
                 </IconButton>
                 :
                 <MuiButton
+                    disabled={isLoading}
                     size={size}
                     variant={variant}
                     onClick={onClick}

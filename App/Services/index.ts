@@ -4,6 +4,8 @@ import {
 } from '@reduxjs/toolkit/query/react'
 import { baseUrl } from 'App/Config/baseUrl'
 
+console.log("baseUrl===>", baseUrl)
+
 export const api = createApi({
     tagTypes: [
         'Car',
@@ -14,7 +16,7 @@ export const api = createApi({
             headers,
             { getState }: any
         ) => {
-            const token = getState().auth.user?.token
+            const token = getState().auth.user?.access_token
 
             if (token)
                 headers.set('authorization', `Bearer ${token}`)

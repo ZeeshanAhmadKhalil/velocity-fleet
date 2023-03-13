@@ -4,11 +4,13 @@ import layout from '@Screens/Layouts/Store/layoutSlice'
 import theme from '@Screens/Layouts/Store/themeSlice'
 import shared from '@Screens/Shared/Store/sharedSlice'
 import car from '@Screens/Car/Store/carSlice'
+import auth from '@Screens/Auth/Store/authSlice'
 import storage from '@Store/storage'
 import { combineReducers } from "redux"
 import { persistReducer } from 'redux-persist'
 
 const reducers = combineReducers({
+    auth,
     car,
     layout,
     shared,

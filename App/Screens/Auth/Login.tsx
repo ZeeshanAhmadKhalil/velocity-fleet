@@ -11,6 +11,7 @@ import {
 import { useForm } from 'react-hook-form'
 import cls from 'classnames';
 import { useRouter } from 'next/router';
+import { useLoginMutation } from './Services/authApi';
 
 const Login = () => {
 
@@ -27,6 +28,11 @@ const Login = () => {
         }
     }: any = useTheme()
 
+    const [
+        login,
+        { isLoading }
+    ] = useLoginMutation()
+
     const {
         register,
         control,
@@ -39,6 +45,10 @@ const Login = () => {
         mode: 'onChange',
         defaultValues,
     });
+
+    const handleLogin = handleSubmit(data =>
+        login(data)
+    )
 
     return (
         <Card
@@ -77,7 +87,8 @@ const Login = () => {
                     />
                 </Box>
                 <Button
-                    onClick={null}
+                    onClick={handleLogin}
+                    isLoading={isLoading}
                     color={"primary"}
                     style={{
                         borderRadius: 3,
