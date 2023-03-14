@@ -17,7 +17,7 @@ function Button(props: any) {
         iconOnSmall,
         match = "md1",
         size = 'medium',
-        isLoading=false,
+        isLoading = false,
         disableElevation,
         variant = "contained",
     } = props || {}

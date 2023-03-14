@@ -13,7 +13,7 @@ export default function SimpleDropDown({
 }: any) {
 
     const handleChange = (event: any) => {
-        onChange(event.target.value);
+        onChange(event.target.value)
     };
 
     const renderList = list.map(({

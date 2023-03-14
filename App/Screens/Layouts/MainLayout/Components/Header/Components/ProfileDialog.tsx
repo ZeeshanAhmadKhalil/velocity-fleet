@@ -99,7 +99,7 @@ function ProfileDialog() {
         themes,
         selectedTheme,
     } = useSelector((state: any) => state.theme)
-
+80825
     let selectedImagePath
         = themes
             .find((obj: any) => obj.id == selectedTheme)

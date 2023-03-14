@@ -76,41 +76,47 @@ export default function AutoComplete({
                     control={control}
                     name={name}
                     rules={{ required: true }}
-                    render={({ field: { value, onChange } }) => (
-                        <MuiAutocomplete
-                            noOptionsText="Press enter to add"
-                            value={value}
-                            onChange={(event, newValue) =>
-                                onChange(newValue)
-                            }
-                            inputValue={inputValue}
-                            onInputChange={(event, newInputValue) => {
-                                setInputValue(newInputValue);
-                            }}
-                            options={options}
-                            sx={{ width: 305 }}
-                            renderInput={(params) => {
+                    render={({ field: { value, onChange } }) => {
 
-                                const {
-                                    InputLabelProps,
-                                    InputProps,
-                                    ...rest
-                                } = params
 
-                                return (
-                                    <TextField
-                                        {...params.InputProps}
-                                        {...rest}
-                                        onKeyUp={(event) => {
-                                            if (event.key == "Enter")
-                                                handleEnter(inputValue)
-                                        }}
-                                    />
-                                )
-                            }
-                            }
-                        />
-                    )}
+                        return (
+                            <MuiAutocomplete
+                                noOptionsText="Press enter to add"
+                                value={value ? value : ''}
+                                onChange={(event, newValue) => {
+                                    onChange(newValue)
+                                }
+                                }
+                                inputValue={inputValue}
+                                onInputChange={(event, newInputValue) => {
+                                    setInputValue(newInputValue);
+                                }}
+                                options={options}
+                                sx={{ width: 305 }}
+                                renderInput={(params) => {
+
+
+                                    const {
+                                        InputLabelProps,
+                                        InputProps,
+                                        ...rest
+                                    } = params
+
+                                    return (
+                                        <TextField
+                                            {...params.InputProps}
+                                            {...rest}
+                                            onKeyUp={(event) => {
+                                                if (event.key == "Enter")
+                                                    handleEnter(inputValue)
+                                            }}
+                                        />
+                                    )
+                                }
+                                }
+                            />
+                        )
+                    }}
                 />
             </ThemeProvider>
             {error &&

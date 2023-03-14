@@ -1,6 +1,4 @@
 import AutoComplete from '@Components/AutoComplete/AutoComplete';
-import DatePicker from '@Components/DatePicker/DatePicker';
-import DropDown from '@Components/DropDown/DropDown';
 import TextInput from '@Components/TextInput/TextInput';
 import RightDialogLayout from '@Layouts/RightDialogLayout/RightDialogLayout';
 import {
@@ -11,8 +9,10 @@ import {
     useTheme
 } from '@mui/material';
 import { setAddCarDialog } from '@Screens/Car/Store/carSlice';
+import { useAddCategoryMutation, useGetAllCategoriesQuery } from '@Screens/Category/categoryApi';
 import cls from 'classnames';
 import { useForm } from 'react-hook-form';
+import toast from 'react-hot-toast';
 import {
     useDispatch,
     useSelector
@@ -49,11 +49,19 @@ const Label = styled(Typography)(({ theme }) => {
 
 function AddCarDialog() {
 
-    let categories = [
-        "Super Car",
-        "Hyper Car",
-        "Sports Car",
-    ]
+    const [
+        addCategory,
+        { isLoading }
+    ] = useAddCategoryMutation()
+
+    var {
+        data = [],
+        isFetching
+    }: any = useGetAllCategoriesQuery(null)
+
+    const categories = data.map((item: any) => (
+        item.name
+    ))
 
     const defaultValues = {
         color: null,
@@ -80,7 +88,8 @@ function AddCarDialog() {
     const {
     } = useSelector((state: any) => state.shared)
     const {
-        addCarDialog
+        addCarDialog,
+        editCarId
     } = useSelector((state: any) => state.car)
 
     const {
@@ -96,10 +105,22 @@ function AddCarDialog() {
         defaultValues,
     });
 
-    const handleEnter = (value: any) => {
-        console.log("value===>", value)
-        categories.push(value)
-        setValue('category', value)
+    const handleEnter = async (value: any) => {
+
+        let response
+            = await addCategory({
+                name: value
+            })
+
+        const {
+            error,
+            data: respData
+        }: any = response || {}
+
+        if (respData)
+            toast.success("Category added successfully.")
+        else if (error)
+            toast.error(error?.data?.message)
     }
 
     return (
@@ -111,11 +132,14 @@ function AddCarDialog() {
                     onClose={() =>
                         dispatch(setAddCarDialog(false))
                     }
+                    categories={data}
+                    reset={reset}
+                    defaultValues={defaultValues}
                 />
             }
             open={addCarDialog}
             closeBtnText="Car"
-            title={"Add CAR"}
+            title={`${editCarId ? "EDIT" : "ADD"} CAR`}
         >
             <Container>
                 <Typography

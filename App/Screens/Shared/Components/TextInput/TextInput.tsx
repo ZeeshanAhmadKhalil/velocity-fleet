@@ -55,6 +55,7 @@ function TextInput(props: any) {
         name,
         width,
         error,
+        message,
         register,
         multiline,
         placeholder,
@@ -128,7 +129,11 @@ function TextInput(props: any) {
                         variant="caption"
                         component="div"
                     >
-                        {`${camelToTitle(name)} is required`}
+                        {message ?
+                            message
+                            :
+                            `${camelToTitle(name)} is required`
+                        }
                     </Typography>
                 </div>
             }

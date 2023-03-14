@@ -4,11 +4,10 @@ import {
 } from '@reduxjs/toolkit/query/react'
 import { baseUrl } from 'App/Config/baseUrl'
 
-console.log("baseUrl===>", baseUrl)
-
 export const api = createApi({
     tagTypes: [
         'Car',
+        'Category',
     ],
     baseQuery: fetchBaseQuery({
         baseUrl,

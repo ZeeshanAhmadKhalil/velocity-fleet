@@ -1,16 +1,16 @@
-import Button from '@Components/Button/Button'
-import TextInput from '@Components/TextInput/TextInput'
+import Button from '@Components/Button/Button';
+import TextInput from '@Components/TextInput/TextInput';
 import {
     Box,
     Card,
     CardContent,
-    CardHeader,
     Typography,
     useTheme
-} from '@mui/material'
-import { useForm } from 'react-hook-form'
+} from '@mui/material';
 import cls from 'classnames';
 import { useRouter } from 'next/router';
+import { useForm } from 'react-hook-form';
+import toast from 'react-hot-toast';
 import { useLoginMutation } from './Services/authApi';
 
 const Login = () => {
@@ -46,9 +46,22 @@ const Login = () => {
         defaultValues,
     });
 
-    const handleLogin = handleSubmit(data =>
-        login(data)
-    )
+    const handleLogin = handleSubmit(async data => {
+
+
+        let response
+            = await login(data)
+
+        const {
+            error,
+            data: respData
+        }: any = response || {}
+
+        if (respData)
+            toast.success("Logged in successfully.")
+        else if (error)
+            toast.error(error?.data?.message)
+    })
 
     return (
         <Card

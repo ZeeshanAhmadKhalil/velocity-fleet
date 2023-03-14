@@ -1,6 +1,6 @@
 import Table from '@Components/Table/Table';
 import TitleHeader from '@Components/TitleHeader/TitleHeader';
-import { getId } from '@Config/helper';
+import { Chip } from '@mui/material';
 import {
     useState
 } from 'react';
@@ -9,22 +9,16 @@ import {
 } from 'react-redux';
 import AddCarDialog from './Components/AddCar/AddCarDialog';
 import CarActions from './Components/CarActions';
+import { useGetAllCarsQuery } from './Services/carApi';
 import {
     setAddCarDialog
 } from './Store/carSlice';
 
 let columns = [
     {
-        field: 'id',
+        field: '_id',
         headerName: 'Id',
         width: 0,
-        hidable: true,
-    },
-    {
-        field: 'color',
-        headerName: 'Color',
-        width: 200,
-        headerClassName: 'separator-header',
         hidable: true,
     },
     {
@@ -42,6 +36,22 @@ let columns = [
         hidable: true,
     },
     {
+        field: 'color',
+        headerName: 'Color',
+        width: 200,
+        headerClassName: 'separator-header',
+        hidable: true,
+        renderCell: ({
+            value
+        }: any) =>
+            <Chip
+                sx={{
+                    width: 65,
+                    bgcolor: value
+                }}
+            />
+    },
+    {
         field: 'registrationNo',
         headerName: 'Registration No',
         width: 200,
@@ -55,36 +65,10 @@ let columns = [
         field: 'category',
         headerName: 'Category',
         width: 200,
-    },
-]
-
-let cars = [
-    {
-        id: getId(),
-        color: "Red",
-        model: "Huracan",
-        make: "Lamborghini",
-        registrationNo: "",
-        topSpeed: "260 kph ",
-        category: 1,
-    },
-    {
-        id: getId(),
-        color: "Red",
-        model: "Huracan",
-        make: "Lamborghini",
-        registrationNo: "",
-        topSpeed: "260 kph ",
-        category: 1,
-    },
-    {
-        id: getId(),
-        color: "Red",
-        model: "Huracan",
-        make: "Lamborghini",
-        registrationNo: "",
-        topSpeed: "260 kph ",
-        category: 1,
+        valueFormatter: ({
+            value
+        }: any) =>
+            value.name
     },
 ]
 
@@ -93,7 +77,14 @@ function Car() {
     const dispatch = useDispatch()
 
     const [selectedCars, setSelectedCars] = useState([])
-    const [selectedCategory, setSelectedCategory] = useState([])
+    const [selectedCategory, setSelectedCategory] = useState(null)
+
+    var {
+        data = [],
+        isFetching
+    } = useGetAllCarsQuery({
+        categoryId: selectedCategory
+    })
 
     return (
         <>
@@ -108,6 +99,7 @@ function Car() {
                 }
             />
             <Table
+                loading={isFetching}
                 title="Cars"
                 onRowSelectionModelChange={(selected: any) =>
                     setSelectedCars(selected)
@@ -116,7 +108,7 @@ function Car() {
                     dispatch(setAddCarDialog(true))
                 }
                 columns={columns}
-                rows={cars}
+                rows={data}
             />
             <AddCarDialog />
         </>

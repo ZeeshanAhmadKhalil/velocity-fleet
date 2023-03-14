@@ -11,14 +11,22 @@ import {
 import { useForm } from 'react-hook-form'
 import cls from 'classnames';
 import { useRouter } from 'next/router';
+import { useRegisterMutation } from './Services/authApi';
+import { emailRegex } from '@Config/constants';
+import toast from 'react-hot-toast';
 
 const Register = () => {
 
+    let emailValidation: any = {
+        required: true,
+        pattern: {
+            value: emailRegex
+        }
+    }
+
     const defaultValues = {
-        fullname: null,
+        fullName: null,
         email: null,
-        password: null,
-        confirmPassword: null,
     }
 
     const router = useRouter()
@@ -28,6 +36,11 @@ const Register = () => {
             text: { grey }
         }
     }: any = useTheme()
+
+    const [
+        registerUser,
+        { isLoading }
+    ] = useRegisterMutation()
 
     const {
         register,
@@ -41,6 +54,26 @@ const Register = () => {
         mode: 'onChange',
         defaultValues,
     });
+
+    const handleRegister = handleSubmit(async data => {
+
+        let response
+            = await registerUser(data)
+
+        console.log("response===>", response)
+
+        const {
+            error,
+            data: respData,
+        }: any = response || {}
+
+        if (respData) {
+
+            toast.success("Registered successfully, please check your email")
+            router.push('/login')
+        } else if (error)
+            toast.error(error?.data?.message)
+    })
 
     return (
         <Card
@@ -62,24 +95,26 @@ const Register = () => {
                 </Typography>
                 <Box sx={{ mb: 3 }}>
                     <TextInput
-                        register={register("fullname", {
+                        register={register("fullName", {
                             required: true,
                         })}
-                        name="fullname"
-                        error={errors.fullname}
+                        name="fullName"
+                        error={errors.fullName}
                     />
                 </Box>
                 <Box sx={{ mb: 3 }}>
                     <TextInput
-                        register={register("email", {
-                            required: true,
-                        })}
+                        register={register("email",
+                            emailValidation
+                        )}
                         name="email"
                         error={errors.email}
+                        message="Enter valid email"
                     />
                 </Box>
                 <Button
-                    onClick={null}
+                    onClick={handleRegister}
+                    isLoading={isLoading}
                     color={"primary"}
                     style={{
                         borderRadius: 3,

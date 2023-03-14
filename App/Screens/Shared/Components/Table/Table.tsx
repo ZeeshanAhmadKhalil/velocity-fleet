@@ -190,6 +190,7 @@ function Table(props: any) {
         borderColor,
         noRowsAction,
         height = 650,
+        loading = false,
         hidePagination,
         processRowUpdate,
         stripedRows = false,
@@ -197,7 +198,7 @@ function Table(props: any) {
         checkboxSelection = true,
         onRowSelectionModelChange,
         headerColor = tableHeader?.main,
-        columnVisibilityModel = { id: false },
+        columnVisibilityModel = { _id: false },
         rowSeparatorColor = tableSeparator?.main,
     } = props || {}
 
@@ -246,12 +247,13 @@ function Table(props: any) {
                         rowSeparatorColor,
                         headerColor,
                     }}
+                    getRowId={(row: any) => row._id}
                     onRowSelectionModelChange={onRowSelectionModelChange}
                     columnVisibilityModel={columnVisibilityModel}
                     processRowUpdate={processRowUpdate}
                     onRowClick={onRowClick}
                     hideFooter={hidePagination}
-                    loading={false}
+                    loading={loading}
                     rows={rows}
                     autoHeight={autoHeight}
                     columns={columnsToPass}
