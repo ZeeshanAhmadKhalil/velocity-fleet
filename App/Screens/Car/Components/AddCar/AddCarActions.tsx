@@ -49,7 +49,7 @@ function AddCarActions(props: any) {
                 obj.name == data?.category
             )?._id
 
-        let response
+        let response 
             = await addCar({
                 ...data,
                 categoryId
